@@ -1,0 +1,273 @@
+Requirements:
+
+RELATIONAL DATABASE DESIGN USING SQL STATEMENTS – 50 points
+Group will create a Class Session and Student Enrollment database application using Microsoft Access and relational model. 
+The relational database application will demonstrate the ability of a database to capture, store, and report on data and
+information through the use of SQL syntax. 
+Specific instructions, concepts, expectations, and demonstrations of coding SQL in Access will be provided during scheduled 
+class lecture time as stated in the syllabus. It is highly recommended that you attend all scheduled class sessions to obtain all 
+the necessary skills and understanding to complete this assignment.
+Your final deliverable for this project is a Microsoft Access File containing a sequence of SQL statements that will recreate the 
+database design from Part 1 of the project in Microsoft Access. Your submission will need to include the following 
+components/requirements.
+Note: Name all your queries in the Access file with the naming convention that starts with #: Example “1 CREATE Session 
+Table”, “2 CREATE Student Table”, … “x Select…”, etc
+Database Entities & Attributes Requirement:
+You will use CREATE and ALTER SQL Statements to create the following database structure in Access. Please refer to Access 
+Group Project Part 1 Guideline for details of the Attribute requirements.
+
+Data Requirement: • You will use INSERT Statements to populate the Student Table with the following data(some example data)
+• You will use INSERT Statements to populate the Session Table with the following data.(some example data)
+• You will use INSERT Statements to populate the Schedule Table with the following data.(some example data)
+Data Views & Manipulations Requirement: • A SQL statement titled SQL DML 1 that will yield the answer to: Which Session(s) have the maximum capacity under 
+60 students? Please provide Session Number, Session Title, and Session Description in the results. • A SQL statement titled SQL DML 2 that will yield the answer to: Which Session has the price of the course that is over 
+$1,500 and under $3,500? Please provide Session Number, Session Title, and Session Description, Session Price in 
+the results. • A SQL statement titled SQL DML 3 that will yield the answer to: The school would like to know how many students 
+enrolled to each of the session offered. Please produce a table showing Session Title of each session offered, and the 
+count of students enrolled to each session. Your query result should show two columns where the first column is the 
+Session Title and second column is the count of students titled EnrollCount. 
+• A SQL statement titled SQL DML 4 that will do the following: The school determined that due to State budget cuts, the 
+it will need to charge an additional $500 to sessions that is currently priced under $2,000. Please update the Session 
+Price in the database by adding $500 to any session that is under $2,000.
+• A SQL statement titled SQL DDL 5 that will do the following: The school decided to start tracking the target year each 
+student is suppose to graduate. However, currently the database does not have a field to store this value. Create a new 
+attribute for the Student Table with the title GradYear using ‘short text’ data type so moving forward the school can 
+store this value for incoming freshmen. 
+• A SQL statement titled SQL DML 6 that will do the following: The school would like to know how many sessions each 
+student is currently registered to take. Please produce a table showing Student ID of each student, and the count of 
+sessions each student is currently scheduled to. Your query result should show two columns where the first column will 
+show Student ID and the second column showing count of sessions will be titled EnrollCount. 
+• A SQL statement titled SQL DML 7 that will do the following: The school would like to know the student(s) that currently 
+is not registered to any sessions for the quarter. Please show the Student ID, Student First Name, and Student Last 
+Name attributes in your results. – Use of JOIN required (hint: Student Table = Left Table)
+• A SQL statement titled SQL DML 8 that will return the below result.
+- Use of JOIN required (hint: Session Table = Left Table)
+Submission Requirement:
+Group leader is to submit a single Access file containing all the SQL queries following the naming specified in each section of 
+this guideline. Please delete all data, relationships, AND tables from the Access file prior to submission. The submitted file 
+should only contain the SQL queries that start with execution sequence number. 
+
+Grading:
+• Database Definition SQL (CREATE, ALTER, etc) Statements: – 4 points for each run error
+• Relationship Building Statements: – 4 points for each run error
+• Insert Data Statements: – 1 points for each run error
+• Data Manipulation (SELECT…) Statements: – 2 points for each run error
+
+
+1. create student table
+
+CREATE TABLE StudentTable ( 
+StudentID AUTOINCREMENT(1,1) NOT NULL CONSTRAINT Pk_StudentID PRIMARY KEY,
+StudentFirstName CHAR(15) NOT NULL,
+StudentLastName CHAR(15) NOT NULL,
+StudentAddress CHAR(100) NOT NULL,
+StudentZipCode CHAR(15) NOT NULL,
+StudentEmailAdd CHAR(100) NOT NULL,
+StudentPhoneNo CHAR(15) NOT NULL)
+
+2. create session table
+
+CREATE TABLE SessionTable(
+SessionNumber AUTOINCREMENT(1,1) NOT NULL CONSTRAINT Pk_SessionNumber PRIMARY KEY,
+SessionTitle CHAR(10) NOT NULL,
+SessionDescription CHAR(200) NOT NULL,
+SessionStartDate DATE NOT NULL,
+SessionEndDate DATE NOT NULL,
+SessionMeetingTime CHAR(30) NOT NULL,
+SessionMaxCapacity INTEGER,
+SessionPrice CURRENCY)
+
+3. create schedule table
+
+CREATE TABLE ScheduleTable(
+ScheduleID AUTOINCREMENT(1,1) NOT NULL CONSTRAINT Pk_ScheduleID PRIMARY KEY,
+StudentID Integer,
+SessionNumber Integer)
+
+4. create relationship studentID
+
+ALTER TABLE ScheduleTable
+ADD CONSTRAINT Relationship1
+FOREIGN KEY (StudentID)
+REFERENCES StudentTable (StudentID)
+
+5. create relationship session number
+
+ALTER TABLE ScheduleTable
+ADD CONSTRAINT Relationship2
+FOREIGN KEY (SessionNumber)
+REFERENCES SessionTable (SessionNumber)
+
+6. Insert student1
+
+INSERT INTO StudentTable ( StudentID, StudentFirstName, StudentLastName, StudentAddress, StudentZipCode, StudentEmailAdd, StudentPhoneNo )
+VALUES (1, 'Kan', 'Wang', '1234 Street Ave', '99999-9999', 'kanwang@ucr.edu', '(123) 456-7890');
+
+7. Insert student2
+
+INSERT INTO StudentTable ( StudentID, StudentFirstName, StudentLastName, StudentAddress, StudentZipCode, StudentEmailAdd, StudentPhoneNo )
+VALUES (2, 'Jane', 'Smith', '999 ABC Street', '88888-8888', 'janesmith@ucr.edu', '(293) 749-3274');
+
+8. Insert student3
+
+INSERT INTO StudentTable ( StudentID, StudentFirstName, StudentLastName, StudentAddress, StudentZipCode, StudentEmailAdd, StudentPhoneNo )
+VALUES (3, 'Jason', 'Cady', '7719 Riverside Street', '77777-7777', 'jasoncady@ucr.edu', '(234) 678-7234');
+
+9. Insert student4
+
+INSERT INTO StudentTable ( StudentID, StudentFirstName, StudentLastName, StudentAddress, StudentZipCode, StudentEmailAdd, StudentPhoneNo )
+VALUES (4, 'Susan', 'Thomas', '8372 Crest Lane', '66666-6666', 'susanthomas@ucr.edu', '(238) 746-8237');
+
+10. Insert student 5
+
+INSERT INTO StudentTable ( StudentID, StudentFirstName, StudentLastName, StudentAddress, StudentZipCode, StudentEmailAdd, StudentPhoneNo )
+VALUES (5, 'Aron', 'Chen', '9287 Lemon Street', '55555-5555', 'aronchen@ucr.edu', '(987) 324-8768');
+
+11. Insert student 6
+
+INSERT INTO StudentTable ( StudentID, StudentFirstName, StudentLastName, StudentAddress, StudentZipCode, StudentEmailAdd, StudentPhoneNo )
+VALUES (6, 'Zack', 'Del Pizzo', '2392 Temple Ave', '44444-4444', 'zackdelpizzo@ucr.edu', '(293) 847-8329');
+
+12. Insert session 1
+
+INSERT INTO SessionTable ( SessionNumber, SessionTitle, SessionDescription, SessionStartDate, SessionEndDate, SessionMeetingTime, SessionMaxCapacity, SessionPrice )
+VALUES (1, 'BUS 173', 'Database Management', '6/26/2017', '7/27/2018', 'MW 5:40 - 8:30pm', '60', '$2500.00');
+
+13. Insert session 2
+
+INSERT INTO SessionTable ( SessionNumber, SessionTitle, SessionDescription, SessionStartDate, SessionEndDate, SessionMeetingTime, SessionMaxCapacity, SessionPrice )
+VALUES (2, 'BUS 174', 'Electronic Commerce', '6/26/2017', '7/27/2018', 'MW 7:00 - 10:00pm', '26', '$3500.00');
+
+14. Insert session 3
+
+INSERT INTO SessionTable ( SessionNumber, SessionTitle, SessionDescription, SessionStartDate, SessionEndDate, SessionMeetingTime, SessionMaxCapacity, SessionPrice )
+VALUES (3, 'BUS 171', 'System Analysis and Design', '6/26/2017', '7/27/2018', 'TTh 5:40 - 8:30pm', '60', '$1500.00');
+
+15. Insert session 4
+
+INSERT INTO SessionTable ( SessionNumber, SessionTitle, SessionDescription, SessionStartDate, SessionEndDate, SessionMeetingTime, SessionMaxCapacity, SessionPrice )
+VALUES (4, 'BUS 179', 'Geographic Information System', '6/26/2017', '7/27/2018', 'TTh 7:00 - 10:00pm', '26', '$6000.00');
+
+16. Insert schedule 1
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (1, 5, 1);
+
+17. Insert schedule 2
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (2, 4, 1);
+
+18. Insert schedule 3
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (3, 3, 1);
+
+19. Insert schedule 4
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (4, 2, 1);
+
+20. Insert schedule 5
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (5, 1, 1);
+
+21. Insert schedule 6
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (6, 4, 2);
+
+22. Insert schedule 7
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (7, 3, 2);
+
+23. Insert schedule 8
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (8, 2, 2);
+
+24. Insert schedule 9
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (9, 1, 2);
+
+25. Insert schedule 10
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (10, 3, 3);
+
+26. Insert schedule 11
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (11, 2, 3);
+
+27. Insert schedule 12
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (12, 1, 3);
+
+28. Insert schedule 13
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (13, 2, 4);
+
+29. Insert Schedule 14
+
+INSERT INTO ScheduleTable ( ScheduleID, StudentID, SessionNumber )
+VALUES (14, 1, 4);
+
+30. SQL DML 1
+
+SELECT SessionTable.SessionNumber, SessionTable.SessionTitle, SessionTable.SessionDescription
+FROM SessionTable
+WHERE SessionMaxCapacity < 60;
+
+31. SQL DML 2
+
+SELECT SessionTable.SessionNumber, SessionTable.SessionTitle, SessionTable.SessionDescription, SessionTable.SessionPrice
+FROM SessionTable
+WHERE SessionPrice > 1500 AND SessionPrice <3500;
+
+32. SQL DML 3
+
+SELECT SessionTable.SessionTitle, COUNT( ScheduleTable.SessionNumber) AS EnrollCount
+FROM SessionTable, ScheduleTable
+WHERE ScheduleTable.SessionNumber = SessionTable.SessionNumber
+GROUP BY SessionTable.SessionTitle;
+
+33. SQL DML 4
+
+UPDATE SessionTable SET SessionPrice = SessionPrice + 500
+WHERE SessionPrice < 2000;
+
+34. SQL DML 5
+
+ALTER TABLE StudentTable ADD GradYear CHAR(10)
+
+35. SQL DML 6
+
+SELECT ScheduleTable.StudentID, COUNT( ScheduleTable.StudentID) AS EnrollCount
+FROM ScheduleTable
+GROUP BY ScheduleTable.StudentID;
+
+36. SQL DML 7
+
+SELECT StudentTable.StudentID, StudentFirstName, StudentLastName
+FROM StudentTable LEFT JOIN ScheduleTable ON StudentTable.StudentID = ScheduleTable.StudentID
+WHERE ScheduleTable.StudentID IS NULL;
+
+37. SQL DML 8
+
+SELECT *
+FROM SessionTable LEFT JOIN ScheduleTable ON SessionTable.SessionNumber = ScheduleTable.SessionNumber;
+
+
+
+
+
+
+
+
+
